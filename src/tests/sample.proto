@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+message MainMessage {
+    string a_str = 1;
+    SomeEnum an_enum = 2;
+    int32 an_int = 3;
+    repeated int32 lst_ints = 4;
+    repeated SomeSubMessage lst_messages = 5;
+    repeated SomeEnum lst_enums = 6;
+    map<int32, ListOfIntsMessage> int_to_lst_ints_map = 7;
+    map<string, SomeSubMessage> str_to_message_map = 8;
+    map<string, int32> str_to_int_map = 9;
+    map<string, SomeEnum> str_to_enum_map = 10;
+}
+
+message SomeSubMessage{
+    string a_str = 1;
+    int64 a_long = 2;
+    repeated int64 lst_longs = 3;
+}
+
+enum SomeEnum {
+        first = 0;
+        second = 1;
+}
+
+message ListOfIntsMessage {
+    repeated int32 lst_ints = 1;
+}
