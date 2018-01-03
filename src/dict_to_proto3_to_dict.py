@@ -100,12 +100,13 @@ def _dict_to_protobuf(values, message):
 
         if field.label == FieldDescriptor.LABEL_REPEATED:
 
-            if field.type == FieldDescriptor.TYPE_MESSAGE:
-                msg = getattr(message, key, None)
+            # Handling map<Type1, Type2> here.
+            if field.type == FieldDescriptor.TYPE_MESSAGE and \
+                isinstance(getattr(message, key), collections.Mapping):
 
-                # Handling map<Type1, Type2> here.
-                if msg is not None and isinstance(msg, collections.Mapping):
+                    msg = getattr(message, key)
                     val_field = field.message_type.fields_by_name['value']
+
                     for key, val in value.items():
                         if val_field.type == FieldDescriptor.TYPE_MESSAGE:
                             _dict_to_protobuf(val, msg[key])
@@ -113,10 +114,9 @@ def _dict_to_protobuf(values, message):
                             msg[key] = _constant_from_enum_label(val_field, val)
                         else:
                             msg[key] = val
-                    continue
-
-            # Handling list of messages, in fact lists in general
-            _handle_repeated(value, getattr(message, key), field)
+            else:
+                # Handling list of messages, in fact lists in general
+                _handle_repeated(value, getattr(message, key), field)
 
         else:
             if field.type == FieldDescriptor.TYPE_ENUM and isinstance(value, basestring):
@@ -173,8 +173,9 @@ def _get_dict_to_fill(message):
 
     for field in message.DESCRIPTOR.fields:
         if field.label == FieldDescriptor.LABEL_REPEATED:
-            if field.type == FieldDescriptor.TYPE_MESSAGE:
-                val = {}
+            if field.type == FieldDescriptor.TYPE_MESSAGE and \
+                isinstance(getattr(message, field.name), collections.Mapping):
+                    val = {}
             else:
                 val = []
 
