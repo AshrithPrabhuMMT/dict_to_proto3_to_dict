@@ -49,6 +49,12 @@ FIELD_DEFAULT_VALS = {
     FieldDescriptor.TYPE_UINT64: 0
 }
 
+def _is_field_a_map(field, message):
+    """
+    Checks if the field is a map
+    """
+    return field.type == FieldDescriptor.TYPE_MESSAGE and \
+                isinstance(getattr(message, field.name), collections.Mapping)
 
 def _constant_from_enum_label(field, value):
     """
@@ -101,22 +107,22 @@ def _dict_to_protobuf(values, message):
         if field.label == FieldDescriptor.LABEL_REPEATED:
 
             # Handling map<Type1, Type2> here.
-            if field.type == FieldDescriptor.TYPE_MESSAGE and \
-                isinstance(getattr(message, key), collections.Mapping):
+            if _is_field_a_map(field, message):
 
-                    msg = getattr(message, key)
+                    msg = getattr(message, field.name)
                     val_field = field.message_type.fields_by_name['value']
 
-                    for key, val in value.items():
+                    for ky, val in value.items():
                         if val_field.type == FieldDescriptor.TYPE_MESSAGE:
-                            _dict_to_protobuf(val, msg[key])
+                            _dict_to_protobuf(val, msg[ky])
                         elif val_field.type == FieldDescriptor.TYPE_ENUM:
-                            msg[key] = _constant_from_enum_label(val_field, val)
+                            msg[ky] = _constant_from_enum_label(val_field, val)
                         else:
-                            msg[key] = val
+                            msg[ky] = val
             else:
-                # Handling list of messages, in fact lists in general
-                _handle_repeated(value, getattr(message, key), field)
+                # Handling lists in general, including list of messages, as
+                # list of messages too has field type as TYPE_MESSAGE
+                _handle_repeated(value, getattr(message, field.name), field)
 
         else:
             if field.type == FieldDescriptor.TYPE_ENUM and isinstance(value, basestring):
@@ -173,8 +179,7 @@ def _get_dict_to_fill(message):
 
     for field in message.DESCRIPTOR.fields:
         if field.label == FieldDescriptor.LABEL_REPEATED:
-            if field.type == FieldDescriptor.TYPE_MESSAGE and \
-                isinstance(getattr(message, field.name), collections.Mapping):
+            if _is_field_a_map(field, message):
                     val = {}
             else:
                 val = []
