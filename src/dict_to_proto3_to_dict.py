@@ -173,7 +173,10 @@ def _get_dict_to_fill(message):
 
     for field in message.DESCRIPTOR.fields:
         if field.label == FieldDescriptor.LABEL_REPEATED:
-            val = []
+            if field.type == FieldDescriptor.TYPE_MESSAGE:
+                val = {}
+            else:
+                val = []
 
         elif field.type == FieldDescriptor.TYPE_ENUM:
             # The first enum value must be zero in proto3. So not sending an enum value
