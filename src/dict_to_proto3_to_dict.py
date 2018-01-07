@@ -127,8 +127,8 @@ def _dict_to_protobuf(values, message):
         else:
             if field.type == FieldDescriptor.TYPE_ENUM and isinstance(value, basestring):
                 value = _constant_from_enum_label(field, value)
-            elif field.type in FIELD_CAST_MAP:
-                value = FIELD_CAST_MAP[field.type](value)
+            elif field.type == FieldDescriptor.TYPE_BYTES:
+                value = value.decode("base64")
             setattr(message, field.name, value)
 
 
