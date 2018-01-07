@@ -208,26 +208,26 @@ def _protobuf_to_dict(message):
     # Loop over the actual proto object and update the field values, which
     # are set to default
     for field, value in message.ListFields():
-        if isinstance(value, collections.Mapping):
-            val_field = field.message_type.fields_by_name['value']
-            containing_dict = {}
-            for key, val in value.items():
-                if val_field.type == FieldDescriptor.TYPE_MESSAGE:
-                    containing_dict[key] = _protobuf_to_dict(val)
-                elif val_field.type == FieldDescriptor.TYPE_ENUM:
-                    containing_dict[key] = _enum_label_from_constant(val_field, val)
-                else:
-                    containing_dict[key] = val
-            result_dict[field.name] = containing_dict
+        if field.label == FieldDescriptor.LABEL_REPEATED:
 
+            if _is_field_a_map(field, message):
+                val_field = field.message_type.fields_by_name['value']
+                containing_dict = {}
+                for key, val in value.items():
+                    if val_field.type == FieldDescriptor.TYPE_MESSAGE:
+                        containing_dict[key] = _protobuf_to_dict(val)
+                    elif val_field.type == FieldDescriptor.TYPE_ENUM:
+                        containing_dict[key] = _enum_label_from_constant(val_field, val)
+                    else:
+                        containing_dict[key] = val
+                result_dict[field.name] = containing_dict
+
+            else:
+                type_cast_callable = _get_type_cast_callable(message, field)
+                # For a list entity, we need to loop over and type cast each
+                result_dict[field.name] = _repeated(type_cast_callable)(value)
         else:
-            type_cast_callable = _get_type_cast_callable(message, field)
-
-            # For a list entity, we need to loop over and type cast each
-            if field.label == FieldDescriptor.LABEL_REPEATED:
-                type_cast_callable = _repeated(type_cast_callable)
-
-            result_dict[field.name] = type_cast_callable(value)
+            result_dict[field.name] = _get_type_cast_callable(message, field)(value)
 
     return result_dict
 
