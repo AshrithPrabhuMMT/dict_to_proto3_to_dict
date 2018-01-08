@@ -84,8 +84,8 @@ def _handle_repeated(values, message, field):
                 if isinstance(val, basestring):
                     message.append(_constant_from_enum_label(field, val))
                 else:
-                    raise ValueError("""label %s passed to enum %s is of type %s """
-                        """not string/unicode""", val, feild.name, type(val))
+                    raise ValueError("""Value %s passed to enum %s is of type %s """
+                        """, not string or unicode""", val, field.name, type(val))
         # List of scalars. Well, other than enums.
         else:
             message.extend(values)
@@ -208,8 +208,8 @@ def _protobuf_to_dict(message):
     # Loop over the actual proto object and update the field values, which
     # are set to default
     for field, value in message.ListFields():
-        if field.label == FieldDescriptor.LABEL_REPEATED:
 
+        if field.label == FieldDescriptor.LABEL_REPEATED:
             if _is_field_a_map(field, message):
                 val_field = field.message_type.fields_by_name['value']
                 containing_dict = {}
@@ -226,6 +226,7 @@ def _protobuf_to_dict(message):
                 type_cast_callable = _get_type_cast_callable(message, field)
                 # For a list entity, we need to loop over and type cast each
                 result_dict[field.name] = _repeated(type_cast_callable)(value)
+
         else:
             result_dict[field.name] = _get_type_cast_callable(message, field)(value)
 
