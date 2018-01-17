@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='sample.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x0csample.proto\"\x97\x05\n\x0bMainMessage\x12\r\n\x05\x61_str\x18\x01 \x01(\t\x12\x1a\n\x07\x61n_enum\x18\x02 \x01(\x0e\x32\t.SomeEnum\x12\x0e\n\x06\x61n_int\x18\x03 \x01(\x05\x12\x10\n\x08lst_ints\x18\x04 \x03(\x05\x12%\n\x0clst_messages\x18\x05 \x03(\x0b\x32\x0f.SomeSubMessage\x12\x1c\n\tlst_enums\x18\x06 \x03(\x0e\x32\t.SomeEnum\x12>\n\x13int_to_lst_ints_map\x18\x07 \x03(\x0b\x32!.MainMessage.IntToLstIntsMapEntry\x12=\n\x12str_to_message_map\x18\x08 \x03(\x0b\x32!.MainMessage.StrToMessageMapEntry\x12\x35\n\x0estr_to_int_map\x18\t \x03(\x0b\x32\x1d.MainMessage.StrToIntMapEntry\x12\x37\n\x0fstr_to_enum_map\x18\n \x03(\x0b\x32\x1e.MainMessage.StrToEnumMapEntry\x1aJ\n\x14IntToLstIntsMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12!\n\x05value\x18\x02 \x01(\x0b\x32\x12.ListOfIntsMessage:\x02\x38\x01\x1aG\n\x14StrToMessageMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x1e\n\x05value\x18\x02 \x01(\x0b\x32\x0f.SomeSubMessage:\x02\x38\x01\x1a\x32\n\x10StrToIntMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x05:\x02\x38\x01\x1a>\n\x11StrToEnumMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x18\n\x05value\x18\x02 \x01(\x0e\x32\t.SomeEnum:\x02\x38\x01\"B\n\x0eSomeSubMessage\x12\r\n\x05\x61_str\x18\x01 \x01(\t\x12\x0e\n\x06\x61_long\x18\x02 \x01(\x03\x12\x11\n\tlst_longs\x18\x03 \x03(\x03\"%\n\x11ListOfIntsMessage\x12\x10\n\x08lst_ints\x18\x01 \x03(\x05*!\n\x08SomeEnum\x12\t\n\x05\x66irst\x10\x00\x12\n\n\x06second\x10\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x0csample.proto\"\xbd\x05\n\x0bMainMessage\x12\r\n\x05\x61_str\x18\x01 \x01(\t\x12\x1a\n\x07\x61n_enum\x18\x02 \x01(\x0e\x32\t.SomeEnum\x12\x0e\n\x06\x61n_int\x18\x03 \x01(\x05\x12\x10\n\x08lst_ints\x18\x04 \x03(\x05\x12%\n\x0clst_messages\x18\x05 \x03(\x0b\x32\x0f.SomeSubMessage\x12\x1c\n\tlst_enums\x18\x06 \x03(\x0e\x32\t.SomeEnum\x12>\n\x13int_to_lst_ints_map\x18\x07 \x03(\x0b\x32!.MainMessage.IntToLstIntsMapEntry\x12=\n\x12str_to_message_map\x18\x08 \x03(\x0b\x32!.MainMessage.StrToMessageMapEntry\x12\x35\n\x0estr_to_int_map\x18\t \x03(\x0b\x32\x1d.MainMessage.StrToIntMapEntry\x12\x37\n\x0fstr_to_enum_map\x18\n \x03(\x0b\x32\x1e.MainMessage.StrToEnumMapEntry\x12$\n\x0bsub_message\x18\x0b \x01(\x0b\x32\x0f.SomeSubMessage\x1aJ\n\x14IntToLstIntsMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12!\n\x05value\x18\x02 \x01(\x0b\x32\x12.ListOfIntsMessage:\x02\x38\x01\x1aG\n\x14StrToMessageMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x1e\n\x05value\x18\x02 \x01(\x0b\x32\x0f.SomeSubMessage:\x02\x38\x01\x1a\x32\n\x10StrToIntMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x05:\x02\x38\x01\x1a>\n\x11StrToEnumMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x18\n\x05value\x18\x02 \x01(\x0e\x32\t.SomeEnum:\x02\x38\x01\"B\n\x0eSomeSubMessage\x12\r\n\x05\x61_str\x18\x01 \x01(\t\x12\x0e\n\x06\x61_long\x18\x02 \x01(\x03\x12\x11\n\tlst_longs\x18\x03 \x03(\x03\"%\n\x11ListOfIntsMessage\x12\x10\n\x08lst_ints\x18\x01 \x03(\x05*!\n\x08SomeEnum\x12\t\n\x05\x66irst\x10\x00\x12\n\n\x06second\x10\x01\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -41,8 +41,8 @@ _SOMEENUM = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=789,
-  serialized_end=822,
+  serialized_start=827,
+  serialized_end=860,
 )
 _sym_db.RegisterEnumDescriptor(_SOMEENUM)
 
@@ -85,8 +85,8 @@ _MAINMESSAGE_INTTOLSTINTSMAPENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=417,
-  serialized_end=491,
+  serialized_start=455,
+  serialized_end=529,
 )
 
 _MAINMESSAGE_STRTOMESSAGEMAPENTRY = _descriptor.Descriptor(
@@ -122,8 +122,8 @@ _MAINMESSAGE_STRTOMESSAGEMAPENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=493,
-  serialized_end=564,
+  serialized_start=531,
+  serialized_end=602,
 )
 
 _MAINMESSAGE_STRTOINTMAPENTRY = _descriptor.Descriptor(
@@ -159,8 +159,8 @@ _MAINMESSAGE_STRTOINTMAPENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=566,
-  serialized_end=616,
+  serialized_start=604,
+  serialized_end=654,
 )
 
 _MAINMESSAGE_STRTOENUMMAPENTRY = _descriptor.Descriptor(
@@ -196,8 +196,8 @@ _MAINMESSAGE_STRTOENUMMAPENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=618,
-  serialized_end=680,
+  serialized_start=656,
+  serialized_end=718,
 )
 
 _MAINMESSAGE = _descriptor.Descriptor(
@@ -277,6 +277,13 @@ _MAINMESSAGE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='sub_message', full_name='MainMessage.sub_message', index=10,
+      number=11, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -290,7 +297,7 @@ _MAINMESSAGE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=17,
-  serialized_end=680,
+  serialized_end=718,
 )
 
 
@@ -334,8 +341,8 @@ _SOMESUBMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=682,
-  serialized_end=748,
+  serialized_start=720,
+  serialized_end=786,
 )
 
 
@@ -365,8 +372,8 @@ _LISTOFINTSMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=750,
-  serialized_end=787,
+  serialized_start=788,
+  serialized_end=825,
 )
 
 _MAINMESSAGE_INTTOLSTINTSMAPENTRY.fields_by_name['value'].message_type = _LISTOFINTSMESSAGE
@@ -383,6 +390,7 @@ _MAINMESSAGE.fields_by_name['int_to_lst_ints_map'].message_type = _MAINMESSAGE_I
 _MAINMESSAGE.fields_by_name['str_to_message_map'].message_type = _MAINMESSAGE_STRTOMESSAGEMAPENTRY
 _MAINMESSAGE.fields_by_name['str_to_int_map'].message_type = _MAINMESSAGE_STRTOINTMAPENTRY
 _MAINMESSAGE.fields_by_name['str_to_enum_map'].message_type = _MAINMESSAGE_STRTOENUMMAPENTRY
+_MAINMESSAGE.fields_by_name['sub_message'].message_type = _SOMESUBMESSAGE
 DESCRIPTOR.message_types_by_name['MainMessage'] = _MAINMESSAGE
 DESCRIPTOR.message_types_by_name['SomeSubMessage'] = _SOMESUBMESSAGE
 DESCRIPTOR.message_types_by_name['ListOfIntsMessage'] = _LISTOFINTSMESSAGE

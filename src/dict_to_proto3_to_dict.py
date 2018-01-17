@@ -124,6 +124,10 @@ def _dict_to_protobuf(values, message):
                 # list of messages too has field type as TYPE_MESSAGE
                 _handle_repeated(value, getattr(message, field.name), field)
 
+        # Handle a sub message
+        elif field.type == FieldDescriptor.TYPE_MESSAGE:
+            _dict_to_protobuf(value, getattr(message, field.name))
+
         else:
             if field.type == FieldDescriptor.TYPE_ENUM and isinstance(value, basestring):
                 value = _constant_from_enum_label(field, value)
@@ -183,6 +187,9 @@ def _get_dict_to_fill(message):
                     val = {}
             else:
                 val = []
+
+        elif field.type == FieldDescriptor.TYPE_MESSAGE:
+            val = {}
 
         elif field.type == FieldDescriptor.TYPE_ENUM:
             # The first enum value must be zero in proto3. So not sending an enum value

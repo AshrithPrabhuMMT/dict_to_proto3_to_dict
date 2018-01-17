@@ -30,6 +30,7 @@ class TestProtoUtilModule(unittest.TestCase):
                                         }
         dct["str_to_int_map"] = {"some_str": 1}
         dct["str_to_enum_map"] = {"first_key": "first", "second_key": "second"}
+        dct["sub_message"] = {"a_str": "bangalore", "a_long": 560048L, "lst_longs": [1L, 2L, 3L]}
         self.data_dct = dct
         self.main_msg_fields = self.data_dct.keys()
 
@@ -84,6 +85,19 @@ class TestProtoUtilModule(unittest.TestCase):
         dct = protobuf_to_dict(msg)
         self.assertEqual(dct["a_str"], "")
         self.assertEqual(dct["an_int"], 0)
+
+
+    def test_message_manipulation(self):
+
+        self.data_dct["sub_message"]["a_long"] = 560103L
+
+        msg = MainMessage()
+        dict_to_protobuf(self.data_dct, msg)
+
+        self.assertTrue(self._are_fields_in_proto_msg(msg, ["sub_message"]))
+
+        dct = protobuf_to_dict(msg)
+        self.assertEqual(dct["sub_message"]["a_long"], 560103L)
 
     def test_list_manipulation(self):
         self.data_dct["lst_ints"] = []
