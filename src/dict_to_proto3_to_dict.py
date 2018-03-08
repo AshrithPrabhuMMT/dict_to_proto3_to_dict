@@ -2,6 +2,7 @@
 
 import collections
 import os
+import sys
 
 # Using the cpp implemenation to speed up proto processing. Though the api_implementation
 # module defaults it to cpp, so we can safely comment out the next line of code.
@@ -11,23 +12,28 @@ from google.protobuf.descriptor import FieldDescriptor
 
 __all__ = ['dict_to_protobuf', 'protobuf_to_dict']
 
+if sys.version_info[0] < 3:
+    LONG_TYPE = long
+else
+    LONG_TYPE = int
+
 FIELD_CAST_MAP = {
     FieldDescriptor.TYPE_BOOL: bool,
     FieldDescriptor.TYPE_BYTES: lambda b: b.encode("base64"),
     FieldDescriptor.TYPE_DOUBLE: float,
     FieldDescriptor.TYPE_ENUM: int,
     FieldDescriptor.TYPE_FIXED32: int,
-    FieldDescriptor.TYPE_FIXED64: long,
+    FieldDescriptor.TYPE_FIXED64: LONG_TYPE,
     FieldDescriptor.TYPE_FLOAT: float,
     FieldDescriptor.TYPE_INT32: int,
-    FieldDescriptor.TYPE_INT64: long,
+    FieldDescriptor.TYPE_INT64: LONG_TYPE,
     FieldDescriptor.TYPE_SFIXED32: int,
-    FieldDescriptor.TYPE_SFIXED64: long,
+    FieldDescriptor.TYPE_SFIXED64: LONG_TYPE,
     FieldDescriptor.TYPE_SINT32: int,
-    FieldDescriptor.TYPE_SINT64: long,
+    FieldDescriptor.TYPE_SINT64: LONG_TYPE,
     FieldDescriptor.TYPE_STRING: unicode,
     FieldDescriptor.TYPE_UINT32: int,
-    FieldDescriptor.TYPE_UINT64: long
+    FieldDescriptor.TYPE_UINT64: LONG_TYPE
 }
 
 FIELD_DEFAULT_VALS = {
