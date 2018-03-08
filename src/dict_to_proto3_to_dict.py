@@ -14,8 +14,10 @@ __all__ = ['dict_to_protobuf', 'protobuf_to_dict']
 
 if sys.version_info[0] < 3:
     LONG_TYPE = long
-else
+    UNICODE_TYPE = unicode
+else:
     LONG_TYPE = int
+    UNICODE_TYPE = str
 
 FIELD_CAST_MAP = {
     FieldDescriptor.TYPE_BOOL: bool,
@@ -31,7 +33,7 @@ FIELD_CAST_MAP = {
     FieldDescriptor.TYPE_SFIXED64: LONG_TYPE,
     FieldDescriptor.TYPE_SINT32: int,
     FieldDescriptor.TYPE_SINT64: LONG_TYPE,
-    FieldDescriptor.TYPE_STRING: unicode,
+    FieldDescriptor.TYPE_STRING: UNICODE_TYPE,
     FieldDescriptor.TYPE_UINT32: int,
     FieldDescriptor.TYPE_UINT64: LONG_TYPE
 }
