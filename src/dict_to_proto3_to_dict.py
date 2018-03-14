@@ -15,9 +15,11 @@ __all__ = ['dict_to_protobuf', 'protobuf_to_dict']
 if sys.version_info[0] < 3:
     LONG_TYPE = long
     UNICODE_TYPE = unicode
+    BASESTRING_TYPE = basestring
 else:
     LONG_TYPE = int
     UNICODE_TYPE = str
+    BASESTRING_TYPE = str
 
 FIELD_CAST_MAP = {
     FieldDescriptor.TYPE_BOOL: bool,
@@ -89,7 +91,7 @@ def _handle_repeated(values, message, field):
         # List of enums
         elif field.type == FieldDescriptor.TYPE_ENUM:
             for val in values:
-                if isinstance(val, basestring):
+                if isinstance(val, BASESTRING_TYPE):
                     message.append(_constant_from_enum_label(field, val))
                 else:
                     raise ValueError("""Value %s passed to enum %s is of type %s """
@@ -137,7 +139,7 @@ def _dict_to_protobuf(values, message):
             _dict_to_protobuf(value, getattr(message, field.name))
 
         else:
-            if field.type == FieldDescriptor.TYPE_ENUM and isinstance(value, basestring):
+            if field.type == FieldDescriptor.TYPE_ENUM and isinstance(value, BASESTRING_TYPE):
                 value = _constant_from_enum_label(field, value)
             elif field.type == FieldDescriptor.TYPE_BYTES:
                 value = value.decode("base64")
