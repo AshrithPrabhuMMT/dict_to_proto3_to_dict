@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='dict_to_proto3_to_dict',
-    version='0.1.0',
+    version='0.1.1',
     author='Neeraj Koul',
     author_email='neeraj.koul@goibibo.com',
     description='A python helper library to create a proto3 object from a '
