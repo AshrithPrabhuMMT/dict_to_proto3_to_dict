@@ -5,7 +5,7 @@ A python helper library to create a proto3 object from a dict and also the other
 ## What's handled
  - Standard basic scalars, repeated fields, enums, etc.
  - Most importantly **_maps_** are handled
- - **_Timestamps_** are handled. And the code could be modified on lines to accommodate other well known types.
+ - **_Timestamp_** data type is handled. And the code could be modified on lines to accommodate other well known types.
  - Getting default values in the proto to dict conversion. Comes handy in our ecosystem
    as we are not making apps look in the schema to know the type of the field to decipher the default value. Is particularly handy in case of enums, where we want to get constant 0 label name,
    rather than the constant 0/1/etc.
