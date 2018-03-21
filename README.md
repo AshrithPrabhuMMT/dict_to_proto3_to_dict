@@ -5,6 +5,7 @@ A python helper library to create a proto3 object from a dict and also the other
 ## What's handled
  - Standard basic scalars, repeated fields, enums, etc.
  - Most importantly **_maps_** are handled
+ - Timestamps are handled. And the code could be modified on lines to accommodate other well known types.
  - Getting default values in the proto to dict conversion. Comes handy in our ecosystem
    as we are not making apps look in the schema to know the type of the field to decipher the default value. Is particularly handy in case of enums, where we want to get constant 0 label name,
    rather than the constant 0/1/etc.
@@ -64,6 +65,49 @@ recv_message.ParseFromString(proto_serialised_str)
 protobuf_to_dict(recv_message)
 ```
 
+## Note on protobuf3 Timestamp
+First of all, protobuf timestamp objects in python can be created like
+```python
+from google.protobuf.timestamp_pb2 import Timestamp
+
+from datetime import datetime
+time_now = datetime.now()
+
+time_stamp_now = Timestamp()
+time_stamp_now.FromDatetime(time_now)
+
+# OR
+
+some_timestamp = Timestamp()
+some_timestamp.FromJsonString("2018-06-01T00:00:0Z")
+```
+
+protobuf Timestamp preserves seconds from epoch ( 1-1-1970 start of day as UTC) and has no timezone info embedded.So if we are creating an object like
+
+```python
+from datetime import datetime
+time_now = datetime.now()
+```
+
+It is in our local timezone ( say India, in my case). And now if someone in US is deciphering the proto message, he/she will maybe think of time in its own timezone and it will decipher it as some time in future (even though we might have meant now, assuimg message reaching in some milliseconds over the wire, and hence under a second's fidelity). The trick is standardisation, just send everything in UTC and decrpyt in the same. So if we had converted to UTC, the reader at the other side too would have decrypted it that way, and now would have remained just now.
+
+Have written a couple of helper functions **_convert_to_utc_**  and **_convert_to_local_timezone_** to convert Timestamp obejcts to utc and from utc in our local timezone. Could be used like
+```python
+from datetime import datetime
+
+from dict_to_proto3_to_dict.dict_to_proto3_to_dict import convert_to_utc, convert_to_local_timezone
+
+time_now = datetime.now()
+
+time_stamp_now = Timestamp()
+time_stamp_now.FromDatetime(time_now)
+convert_to_utc(time_stamp_now)
+
+# Send it over the wire and at the receiving end, could have gotten now in there through
+convert_to_local_timezone(timestamp_received)
+
+```
+
 ## Tests
 
 Tests are under `src/tests/` folder. To run, we use [nosetests](https://nose.readthedocs.io/en/latest/)
@@ -71,5 +115,6 @@ Tests are under `src/tests/` folder. To run, we use [nosetests](https://nose.rea
 ```sh
 $ nosetests src/tests/
 ```
+
 
 

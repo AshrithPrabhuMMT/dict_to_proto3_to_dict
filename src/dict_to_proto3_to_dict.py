@@ -3,14 +3,16 @@
 import collections
 import os
 import sys
+import time
 
 # Using the cpp implemenation to speed up proto processing. Though the api_implementation
 # module defaults it to cpp, so we can safely comment out the next line of code.
 os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "cpp"
 
 from google.protobuf.descriptor import FieldDescriptor
+from google.protobuf.timestamp_pb2 import Timestamp
 
-__all__ = ['dict_to_protobuf', 'protobuf_to_dict']
+__all__ = ['dict_to_protobuf', 'protobuf_to_dict', 'convert_to_utc', 'convert_to_local_timezone']
 
 if sys.version_info[0] < 3:
     LONG_TYPE = long
@@ -59,17 +61,29 @@ FIELD_DEFAULT_VALS = {
     FieldDescriptor.TYPE_UINT64: 0
 }
 
+_DEFAULT_TIMESTAMP = "1970-01-01T00:00:00Z" # Epoch Start Time
+_TIMESTAMP_MESSAGE_TYPE_NAME = "google.protobuf.Timestamp"
+
+
+def convert_to_utc(time_stamp):
+    """Converts the local timezone timestamp to utc one which will be
+       sent across ( since utc is defaulted to)
+    """
+    offset = time.timezone if (time.localtime().tm_isdst == 0) else time.altzone
+    time_stamp.seconds += offset
+
+def convert_to_local_timezone(time_stamp):
+    """Converts utc Timestamp to local timezone one."""
+    offset = time.timezone if (time.localtime().tm_isdst == 0) else time.altzone
+    time_stamp.seconds -= offset
+
 def _is_field_a_map(field, message):
-    """
-    Checks if the field is a map
-    """
+    """Checks if the field is a map"""
     return field.type == FieldDescriptor.TYPE_MESSAGE and \
                 isinstance(getattr(message, field.name), collections.Mapping)
 
 def _constant_from_enum_label(field, value):
-    """
-    Converts the string label to the enum constant
-    """
+    """Converts the string label to the enum constant"""
     try:
         val = field.enum_type.values_by_name[value].number
     except KeyError:
@@ -79,15 +93,22 @@ def _constant_from_enum_label(field, value):
 
 
 def _handle_repeated(values, message, field):
-    """
-    Hanldes repeated field when converting a dict to protobuf
-    """
+    """Hanldes repeated field when converting a dict to protobuf"""
     if values:
         # List of messages
         if field.type == FieldDescriptor.TYPE_MESSAGE:
-            for val in values:
-                cmd = message.add()
-                _dict_to_protobuf(val, cmd)
+            # Check for length has already happened through `if values` above
+
+            # Case of list of Timestamps, `repeated Timestamp`
+            # Could be a templatye for handling other well known types.
+            if isinstance(values[0], Timestamp):
+                for val in values:
+                    cmd = message.add()
+                    cmd.MergeFrom(val)
+            else:
+                for val in values:
+                    cmd = message.add()
+                    _dict_to_protobuf(val, cmd)
         # List of enums
         elif field.type == FieldDescriptor.TYPE_ENUM:
             for val in values:
@@ -102,9 +123,8 @@ def _handle_repeated(values, message, field):
 
 
 def _dict_to_protobuf(values, message):
-    """
-    Converts the python dictionary to proto object representation which will then be
-    serialized by proto library. Here
+    """Converts the python dictionary to proto object representation which will then be
+       serialized by proto library.
     """
 
     for key, value in values.items():
@@ -116,7 +136,7 @@ def _dict_to_protobuf(values, message):
 
         if field.label == FieldDescriptor.LABEL_REPEATED:
 
-            # Handling map<Type1, Type2> here.
+            # Handling map<Type1, Type2> here. Map has the label `LABEL_REPEATED`
             if _is_field_a_map(field, message):
 
                     msg = getattr(message, field.name)
@@ -124,7 +144,13 @@ def _dict_to_protobuf(values, message):
 
                     for ky, val in value.items():
                         if val_field.type == FieldDescriptor.TYPE_MESSAGE:
-                            _dict_to_protobuf(val, msg[ky])
+                            # Case of map<Type1, TIMESTAMP>
+                            # Don't know if it is proper, but handling Timestamp
+                            # through message type  full name
+                            if val_field.message_type.full_name == _TIMESTAMP_MESSAGE_TYPE_NAME:
+                                msg[ky].MergeFrom(val)
+                            else:
+                                _dict_to_protobuf(val, msg[ky])
                         elif val_field.type == FieldDescriptor.TYPE_ENUM:
                             msg[ky] = _constant_from_enum_label(val_field, val)
                         else:
@@ -136,13 +162,21 @@ def _dict_to_protobuf(values, message):
 
         # Handle a sub message
         elif field.type == FieldDescriptor.TYPE_MESSAGE:
-            _dict_to_protobuf(value, getattr(message, field.name))
+            # Handling Timestamp
+            if field.message_type.full_name == _TIMESTAMP_MESSAGE_TYPE_NAME:
+                getattr(message, field.name).MergeFrom(value)
+            else:
+                _dict_to_protobuf(value, getattr(message, field.name))
 
         else:
             if field.type == FieldDescriptor.TYPE_ENUM and isinstance(value, BASESTRING_TYPE):
                 value = _constant_from_enum_label(field, value)
             elif field.type == FieldDescriptor.TYPE_BYTES:
                 value = value.decode("base64")
+            elif field.type == FieldDescriptor.TYPE_MESSAGE:
+                msg_type = field.message_type
+                if msg_type.full_name == "google.protobuf.Timestamp":
+                    value = value.ToJsonString()
             setattr(message, field.name, value)
 
 
@@ -151,20 +185,21 @@ def dict_to_protobuf(values, message):
 
 
 def _enum_label_from_constant(field, value):
-    """
-    Gets the enum field label from the int constant of the same
-    """
+    """Gets the enum field label from the int constant of the same"""
     return field.enum_type.values_by_number[int(value)].name
 
 
 def _get_type_cast_callable(message, field):
-    """
-    Gets the callable casting function to map the values from proto domain to
-    python's, say int32 in proto maps to int, int64 to long, sint32 to int, etc.
+    """Gets the callable casting function to map the values from proto domain to
+       python's, say int32 in proto maps to int, int64 to long, sint32 to int, etc.
     """
     if field.type == FieldDescriptor.TYPE_MESSAGE:
-        # Encode the nested message
-        return lambda message: _protobuf_to_dict(message)
+        # Timestamp too is of type `TYPE_MESSAGE`
+        if field.message_type.full_name == _TIMESTAMP_MESSAGE_TYPE_NAME:
+            return lambda message: message
+        else:
+            # Encode the nested message
+            return lambda message: _protobuf_to_dict(message)
 
     if field.type == FieldDescriptor.TYPE_ENUM:
         return lambda value: _enum_label_from_constant(field, value)
@@ -181,8 +216,7 @@ def _repeated(type_cast_callable):
 
 
 def _get_dict_to_fill(message):
-    """
-    We are populating an empty dictionary from the message descriptor fields. This solves
+    """We are populating an empty dictionary from the message descriptor fields. This solves
     the problem of proto not sending zeroed values, say empty string (""), zero value in
     an int, 0 constant of an enum, etc.
 
@@ -199,7 +233,11 @@ def _get_dict_to_fill(message):
                 val = []
 
         elif field.type == FieldDescriptor.TYPE_MESSAGE:
-            val = {}
+            if field.message_type.full_name == _TIMESTAMP_MESSAGE_TYPE_NAME:
+                val = Timestamp()
+                val.FromJsonString(_DEFAULT_TIMESTAMP)
+            else:
+                val = {}
 
         elif field.type == FieldDescriptor.TYPE_ENUM:
             # The first enum value must be zero in proto3. So not sending an enum value
@@ -215,9 +253,7 @@ def _get_dict_to_fill(message):
 
 
 def _protobuf_to_dict(message):
-    """
-    Converts a proto object to a python dictionary.
-    """
+    """Converts a proto object to a python dictionary."""
 
     # Get default value populated dict from the message descriptor.
     result_dict = _get_dict_to_fill(message)
@@ -232,7 +268,10 @@ def _protobuf_to_dict(message):
                 containing_dict = {}
                 for key, val in value.items():
                     if val_field.type == FieldDescriptor.TYPE_MESSAGE:
-                        containing_dict[key] = _protobuf_to_dict(val)
+                        if val_field.message_type.full_name == _TIMESTAMP_MESSAGE_TYPE_NAME:
+                            containing_dict[key] = val
+                        else:
+                            containing_dict[key] = _protobuf_to_dict(val)
                     elif val_field.type == FieldDescriptor.TYPE_ENUM:
                         containing_dict[key] = _enum_label_from_constant(val_field, val)
                     else:

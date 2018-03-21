@@ -14,19 +14,21 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='sample.proto',
-  package='',
+  package='test',
   syntax='proto3',
-  serialized_pb=_b('\n\x0csample.proto\"\xbd\x05\n\x0bMainMessage\x12\r\n\x05\x61_str\x18\x01 \x01(\t\x12\x1a\n\x07\x61n_enum\x18\x02 \x01(\x0e\x32\t.SomeEnum\x12\x0e\n\x06\x61n_int\x18\x03 \x01(\x05\x12\x10\n\x08lst_ints\x18\x04 \x03(\x05\x12%\n\x0clst_messages\x18\x05 \x03(\x0b\x32\x0f.SomeSubMessage\x12\x1c\n\tlst_enums\x18\x06 \x03(\x0e\x32\t.SomeEnum\x12>\n\x13int_to_lst_ints_map\x18\x07 \x03(\x0b\x32!.MainMessage.IntToLstIntsMapEntry\x12=\n\x12str_to_message_map\x18\x08 \x03(\x0b\x32!.MainMessage.StrToMessageMapEntry\x12\x35\n\x0estr_to_int_map\x18\t \x03(\x0b\x32\x1d.MainMessage.StrToIntMapEntry\x12\x37\n\x0fstr_to_enum_map\x18\n \x03(\x0b\x32\x1e.MainMessage.StrToEnumMapEntry\x12$\n\x0bsub_message\x18\x0b \x01(\x0b\x32\x0f.SomeSubMessage\x1aJ\n\x14IntToLstIntsMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12!\n\x05value\x18\x02 \x01(\x0b\x32\x12.ListOfIntsMessage:\x02\x38\x01\x1aG\n\x14StrToMessageMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x1e\n\x05value\x18\x02 \x01(\x0b\x32\x0f.SomeSubMessage:\x02\x38\x01\x1a\x32\n\x10StrToIntMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x05:\x02\x38\x01\x1a>\n\x11StrToEnumMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x18\n\x05value\x18\x02 \x01(\x0e\x32\t.SomeEnum:\x02\x38\x01\"B\n\x0eSomeSubMessage\x12\r\n\x05\x61_str\x18\x01 \x01(\t\x12\x0e\n\x06\x61_long\x18\x02 \x01(\x03\x12\x11\n\tlst_longs\x18\x03 \x03(\x03\"%\n\x11ListOfIntsMessage\x12\x10\n\x08lst_ints\x18\x01 \x03(\x05*!\n\x08SomeEnum\x12\t\n\x05\x66irst\x10\x00\x12\n\n\x06second\x10\x01\x62\x06proto3')
-)
+  serialized_pb=_b('\n\x0csample.proto\x12\x04test\x1a\x1fgoogle/protobuf/timestamp.proto\"\xf7\x07\n\x0bMainMessage\x12\r\n\x05\x61_str\x18\x01 \x01(\t\x12\x1f\n\x07\x61n_enum\x18\x02 \x01(\x0e\x32\x0e.test.SomeEnum\x12\x0e\n\x06\x61n_int\x18\x03 \x01(\x05\x12\x10\n\x08lst_ints\x18\x04 \x03(\x05\x12*\n\x0clst_messages\x18\x05 \x03(\x0b\x32\x14.test.SomeSubMessage\x12!\n\tlst_enums\x18\x06 \x03(\x0e\x32\x0e.test.SomeEnum\x12\x43\n\x13int_to_lst_ints_map\x18\x07 \x03(\x0b\x32&.test.MainMessage.IntToLstIntsMapEntry\x12\x42\n\x12str_to_message_map\x18\x08 \x03(\x0b\x32&.test.MainMessage.StrToMessageMapEntry\x12:\n\x0estr_to_int_map\x18\t \x03(\x0b\x32\".test.MainMessage.StrToIntMapEntry\x12<\n\x0fstr_to_enum_map\x18\n \x03(\x0b\x32#.test.MainMessage.StrToEnumMapEntry\x12)\n\x0bsub_message\x18\x0b \x01(\x0b\x32\x14.test.SomeSubMessage\x12/\n\x0b\x61_timestamp\x18\x0c \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0elst_timestamps\x18\r \x03(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x46\n\x14str_to_timestamp_map\x18\x0e \x03(\x0b\x32(.test.MainMessage.StrToTimestampMapEntry\x1aO\n\x14IntToLstIntsMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.test.ListOfIntsMessage:\x02\x38\x01\x1aL\n\x14StrToMessageMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12#\n\x05value\x18\x02 \x01(\x0b\x32\x14.test.SomeSubMessage:\x02\x38\x01\x1a\x32\n\x10StrToIntMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x05:\x02\x38\x01\x1a\x43\n\x11StrToEnumMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x1d\n\x05value\x18\x02 \x01(\x0e\x32\x0e.test.SomeEnum:\x02\x38\x01\x1aT\n\x16StrToTimestampMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12)\n\x05value\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp:\x02\x38\x01\"B\n\x0eSomeSubMessage\x12\r\n\x05\x61_str\x18\x01 \x01(\t\x12\x0e\n\x06\x61_long\x18\x02 \x01(\x03\x12\x11\n\tlst_longs\x18\x03 \x03(\x03\"%\n\x11ListOfIntsMessage\x12\x10\n\x08lst_ints\x18\x01 \x03(\x05*!\n\x08SomeEnum\x12\t\n\x05\x66irst\x10\x00\x12\n\n\x06second\x10\x01\x62\x06proto3')
+  ,
+  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 _SOMEENUM = _descriptor.EnumDescriptor(
   name='SomeEnum',
-  full_name='SomeEnum',
+  full_name='test.SomeEnum',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -41,8 +43,8 @@ _SOMEENUM = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=827,
-  serialized_end=860,
+  serialized_start=1180,
+  serialized_end=1213,
 )
 _sym_db.RegisterEnumDescriptor(_SOMEENUM)
 
@@ -54,20 +56,20 @@ second = 1
 
 _MAINMESSAGE_INTTOLSTINTSMAPENTRY = _descriptor.Descriptor(
   name='IntToLstIntsMapEntry',
-  full_name='MainMessage.IntToLstIntsMapEntry',
+  full_name='test.MainMessage.IntToLstIntsMapEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='MainMessage.IntToLstIntsMapEntry.key', index=0,
+      name='key', full_name='test.MainMessage.IntToLstIntsMapEntry.key', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='MainMessage.IntToLstIntsMapEntry.value', index=1,
+      name='value', full_name='test.MainMessage.IntToLstIntsMapEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -85,26 +87,26 @@ _MAINMESSAGE_INTTOLSTINTSMAPENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=455,
-  serialized_end=529,
+  serialized_start=707,
+  serialized_end=786,
 )
 
 _MAINMESSAGE_STRTOMESSAGEMAPENTRY = _descriptor.Descriptor(
   name='StrToMessageMapEntry',
-  full_name='MainMessage.StrToMessageMapEntry',
+  full_name='test.MainMessage.StrToMessageMapEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='MainMessage.StrToMessageMapEntry.key', index=0,
+      name='key', full_name='test.MainMessage.StrToMessageMapEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='MainMessage.StrToMessageMapEntry.value', index=1,
+      name='value', full_name='test.MainMessage.StrToMessageMapEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -122,26 +124,26 @@ _MAINMESSAGE_STRTOMESSAGEMAPENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=531,
-  serialized_end=602,
+  serialized_start=788,
+  serialized_end=864,
 )
 
 _MAINMESSAGE_STRTOINTMAPENTRY = _descriptor.Descriptor(
   name='StrToIntMapEntry',
-  full_name='MainMessage.StrToIntMapEntry',
+  full_name='test.MainMessage.StrToIntMapEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='MainMessage.StrToIntMapEntry.key', index=0,
+      name='key', full_name='test.MainMessage.StrToIntMapEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='MainMessage.StrToIntMapEntry.value', index=1,
+      name='value', full_name='test.MainMessage.StrToIntMapEntry.value', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -159,26 +161,26 @@ _MAINMESSAGE_STRTOINTMAPENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=604,
-  serialized_end=654,
+  serialized_start=866,
+  serialized_end=916,
 )
 
 _MAINMESSAGE_STRTOENUMMAPENTRY = _descriptor.Descriptor(
   name='StrToEnumMapEntry',
-  full_name='MainMessage.StrToEnumMapEntry',
+  full_name='test.MainMessage.StrToEnumMapEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='MainMessage.StrToEnumMapEntry.key', index=0,
+      name='key', full_name='test.MainMessage.StrToEnumMapEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='MainMessage.StrToEnumMapEntry.value', index=1,
+      name='value', full_name='test.MainMessage.StrToEnumMapEntry.value', index=1,
       number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -196,90 +198,27 @@ _MAINMESSAGE_STRTOENUMMAPENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=656,
-  serialized_end=718,
+  serialized_start=918,
+  serialized_end=985,
 )
 
-_MAINMESSAGE = _descriptor.Descriptor(
-  name='MainMessage',
-  full_name='MainMessage',
+_MAINMESSAGE_STRTOTIMESTAMPMAPENTRY = _descriptor.Descriptor(
+  name='StrToTimestampMapEntry',
+  full_name='test.MainMessage.StrToTimestampMapEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='a_str', full_name='MainMessage.a_str', index=0,
+      name='key', full_name='test.MainMessage.StrToTimestampMapEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='an_enum', full_name='MainMessage.an_enum', index=1,
-      number=2, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='an_int', full_name='MainMessage.an_int', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='lst_ints', full_name='MainMessage.lst_ints', index=3,
-      number=4, type=5, cpp_type=1, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='lst_messages', full_name='MainMessage.lst_messages', index=4,
-      number=5, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='lst_enums', full_name='MainMessage.lst_enums', index=5,
-      number=6, type=14, cpp_type=8, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='int_to_lst_ints_map', full_name='MainMessage.int_to_lst_ints_map', index=6,
-      number=7, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='str_to_message_map', full_name='MainMessage.str_to_message_map', index=7,
-      number=8, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='str_to_int_map', full_name='MainMessage.str_to_int_map', index=8,
-      number=9, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='str_to_enum_map', full_name='MainMessage.str_to_enum_map', index=9,
-      number=10, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='sub_message', full_name='MainMessage.sub_message', index=10,
-      number=11, type=11, cpp_type=10, label=1,
+      name='value', full_name='test.MainMessage.StrToTimestampMapEntry.value', index=1,
+      number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -287,7 +226,128 @@ _MAINMESSAGE = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_MAINMESSAGE_INTTOLSTINTSMAPENTRY, _MAINMESSAGE_STRTOMESSAGEMAPENTRY, _MAINMESSAGE_STRTOINTMAPENTRY, _MAINMESSAGE_STRTOENUMMAPENTRY, ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=987,
+  serialized_end=1071,
+)
+
+_MAINMESSAGE = _descriptor.Descriptor(
+  name='MainMessage',
+  full_name='test.MainMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='a_str', full_name='test.MainMessage.a_str', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='an_enum', full_name='test.MainMessage.an_enum', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='an_int', full_name='test.MainMessage.an_int', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='lst_ints', full_name='test.MainMessage.lst_ints', index=3,
+      number=4, type=5, cpp_type=1, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='lst_messages', full_name='test.MainMessage.lst_messages', index=4,
+      number=5, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='lst_enums', full_name='test.MainMessage.lst_enums', index=5,
+      number=6, type=14, cpp_type=8, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='int_to_lst_ints_map', full_name='test.MainMessage.int_to_lst_ints_map', index=6,
+      number=7, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='str_to_message_map', full_name='test.MainMessage.str_to_message_map', index=7,
+      number=8, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='str_to_int_map', full_name='test.MainMessage.str_to_int_map', index=8,
+      number=9, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='str_to_enum_map', full_name='test.MainMessage.str_to_enum_map', index=9,
+      number=10, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='sub_message', full_name='test.MainMessage.sub_message', index=10,
+      number=11, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='a_timestamp', full_name='test.MainMessage.a_timestamp', index=11,
+      number=12, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='lst_timestamps', full_name='test.MainMessage.lst_timestamps', index=12,
+      number=13, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='str_to_timestamp_map', full_name='test.MainMessage.str_to_timestamp_map', index=13,
+      number=14, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_MAINMESSAGE_INTTOLSTINTSMAPENTRY, _MAINMESSAGE_STRTOMESSAGEMAPENTRY, _MAINMESSAGE_STRTOINTMAPENTRY, _MAINMESSAGE_STRTOENUMMAPENTRY, _MAINMESSAGE_STRTOTIMESTAMPMAPENTRY, ],
   enum_types=[
   ],
   options=None,
@@ -296,34 +356,34 @@ _MAINMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=17,
-  serialized_end=718,
+  serialized_start=56,
+  serialized_end=1071,
 )
 
 
 _SOMESUBMESSAGE = _descriptor.Descriptor(
   name='SomeSubMessage',
-  full_name='SomeSubMessage',
+  full_name='test.SomeSubMessage',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='a_str', full_name='SomeSubMessage.a_str', index=0,
+      name='a_str', full_name='test.SomeSubMessage.a_str', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='a_long', full_name='SomeSubMessage.a_long', index=1,
+      name='a_long', full_name='test.SomeSubMessage.a_long', index=1,
       number=2, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='lst_longs', full_name='SomeSubMessage.lst_longs', index=2,
+      name='lst_longs', full_name='test.SomeSubMessage.lst_longs', index=2,
       number=3, type=3, cpp_type=2, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -341,20 +401,20 @@ _SOMESUBMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=720,
-  serialized_end=786,
+  serialized_start=1073,
+  serialized_end=1139,
 )
 
 
 _LISTOFINTSMESSAGE = _descriptor.Descriptor(
   name='ListOfIntsMessage',
-  full_name='ListOfIntsMessage',
+  full_name='test.ListOfIntsMessage',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='lst_ints', full_name='ListOfIntsMessage.lst_ints', index=0,
+      name='lst_ints', full_name='test.ListOfIntsMessage.lst_ints', index=0,
       number=1, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -372,8 +432,8 @@ _LISTOFINTSMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=788,
-  serialized_end=825,
+  serialized_start=1141,
+  serialized_end=1178,
 )
 
 _MAINMESSAGE_INTTOLSTINTSMAPENTRY.fields_by_name['value'].message_type = _LISTOFINTSMESSAGE
@@ -383,6 +443,8 @@ _MAINMESSAGE_STRTOMESSAGEMAPENTRY.containing_type = _MAINMESSAGE
 _MAINMESSAGE_STRTOINTMAPENTRY.containing_type = _MAINMESSAGE
 _MAINMESSAGE_STRTOENUMMAPENTRY.fields_by_name['value'].enum_type = _SOMEENUM
 _MAINMESSAGE_STRTOENUMMAPENTRY.containing_type = _MAINMESSAGE
+_MAINMESSAGE_STRTOTIMESTAMPMAPENTRY.fields_by_name['value'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_MAINMESSAGE_STRTOTIMESTAMPMAPENTRY.containing_type = _MAINMESSAGE
 _MAINMESSAGE.fields_by_name['an_enum'].enum_type = _SOMEENUM
 _MAINMESSAGE.fields_by_name['lst_messages'].message_type = _SOMESUBMESSAGE
 _MAINMESSAGE.fields_by_name['lst_enums'].enum_type = _SOMEENUM
@@ -391,6 +453,9 @@ _MAINMESSAGE.fields_by_name['str_to_message_map'].message_type = _MAINMESSAGE_ST
 _MAINMESSAGE.fields_by_name['str_to_int_map'].message_type = _MAINMESSAGE_STRTOINTMAPENTRY
 _MAINMESSAGE.fields_by_name['str_to_enum_map'].message_type = _MAINMESSAGE_STRTOENUMMAPENTRY
 _MAINMESSAGE.fields_by_name['sub_message'].message_type = _SOMESUBMESSAGE
+_MAINMESSAGE.fields_by_name['a_timestamp'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_MAINMESSAGE.fields_by_name['lst_timestamps'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_MAINMESSAGE.fields_by_name['str_to_timestamp_map'].message_type = _MAINMESSAGE_STRTOTIMESTAMPMAPENTRY
 DESCRIPTOR.message_types_by_name['MainMessage'] = _MAINMESSAGE
 DESCRIPTOR.message_types_by_name['SomeSubMessage'] = _SOMESUBMESSAGE
 DESCRIPTOR.message_types_by_name['ListOfIntsMessage'] = _LISTOFINTSMESSAGE
@@ -401,51 +466,59 @@ MainMessage = _reflection.GeneratedProtocolMessageType('MainMessage', (_message.
   IntToLstIntsMapEntry = _reflection.GeneratedProtocolMessageType('IntToLstIntsMapEntry', (_message.Message,), dict(
     DESCRIPTOR = _MAINMESSAGE_INTTOLSTINTSMAPENTRY,
     __module__ = 'sample_pb2'
-    # @@protoc_insertion_point(class_scope:MainMessage.IntToLstIntsMapEntry)
+    # @@protoc_insertion_point(class_scope:test.MainMessage.IntToLstIntsMapEntry)
     ))
   ,
 
   StrToMessageMapEntry = _reflection.GeneratedProtocolMessageType('StrToMessageMapEntry', (_message.Message,), dict(
     DESCRIPTOR = _MAINMESSAGE_STRTOMESSAGEMAPENTRY,
     __module__ = 'sample_pb2'
-    # @@protoc_insertion_point(class_scope:MainMessage.StrToMessageMapEntry)
+    # @@protoc_insertion_point(class_scope:test.MainMessage.StrToMessageMapEntry)
     ))
   ,
 
   StrToIntMapEntry = _reflection.GeneratedProtocolMessageType('StrToIntMapEntry', (_message.Message,), dict(
     DESCRIPTOR = _MAINMESSAGE_STRTOINTMAPENTRY,
     __module__ = 'sample_pb2'
-    # @@protoc_insertion_point(class_scope:MainMessage.StrToIntMapEntry)
+    # @@protoc_insertion_point(class_scope:test.MainMessage.StrToIntMapEntry)
     ))
   ,
 
   StrToEnumMapEntry = _reflection.GeneratedProtocolMessageType('StrToEnumMapEntry', (_message.Message,), dict(
     DESCRIPTOR = _MAINMESSAGE_STRTOENUMMAPENTRY,
     __module__ = 'sample_pb2'
-    # @@protoc_insertion_point(class_scope:MainMessage.StrToEnumMapEntry)
+    # @@protoc_insertion_point(class_scope:test.MainMessage.StrToEnumMapEntry)
+    ))
+  ,
+
+  StrToTimestampMapEntry = _reflection.GeneratedProtocolMessageType('StrToTimestampMapEntry', (_message.Message,), dict(
+    DESCRIPTOR = _MAINMESSAGE_STRTOTIMESTAMPMAPENTRY,
+    __module__ = 'sample_pb2'
+    # @@protoc_insertion_point(class_scope:test.MainMessage.StrToTimestampMapEntry)
     ))
   ,
   DESCRIPTOR = _MAINMESSAGE,
   __module__ = 'sample_pb2'
-  # @@protoc_insertion_point(class_scope:MainMessage)
+  # @@protoc_insertion_point(class_scope:test.MainMessage)
   ))
 _sym_db.RegisterMessage(MainMessage)
 _sym_db.RegisterMessage(MainMessage.IntToLstIntsMapEntry)
 _sym_db.RegisterMessage(MainMessage.StrToMessageMapEntry)
 _sym_db.RegisterMessage(MainMessage.StrToIntMapEntry)
 _sym_db.RegisterMessage(MainMessage.StrToEnumMapEntry)
+_sym_db.RegisterMessage(MainMessage.StrToTimestampMapEntry)
 
 SomeSubMessage = _reflection.GeneratedProtocolMessageType('SomeSubMessage', (_message.Message,), dict(
   DESCRIPTOR = _SOMESUBMESSAGE,
   __module__ = 'sample_pb2'
-  # @@protoc_insertion_point(class_scope:SomeSubMessage)
+  # @@protoc_insertion_point(class_scope:test.SomeSubMessage)
   ))
 _sym_db.RegisterMessage(SomeSubMessage)
 
 ListOfIntsMessage = _reflection.GeneratedProtocolMessageType('ListOfIntsMessage', (_message.Message,), dict(
   DESCRIPTOR = _LISTOFINTSMESSAGE,
   __module__ = 'sample_pb2'
-  # @@protoc_insertion_point(class_scope:ListOfIntsMessage)
+  # @@protoc_insertion_point(class_scope:test.ListOfIntsMessage)
   ))
 _sym_db.RegisterMessage(ListOfIntsMessage)
 
@@ -458,4 +531,6 @@ _MAINMESSAGE_STRTOINTMAPENTRY.has_options = True
 _MAINMESSAGE_STRTOINTMAPENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
 _MAINMESSAGE_STRTOENUMMAPENTRY.has_options = True
 _MAINMESSAGE_STRTOENUMMAPENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
+_MAINMESSAGE_STRTOTIMESTAMPMAPENTRY.has_options = True
+_MAINMESSAGE_STRTOTIMESTAMPMAPENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
 # @@protoc_insertion_point(module_scope)

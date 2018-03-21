@@ -1,10 +1,15 @@
 import copy
+import time
 import unittest
 
-from dict_to_proto3_to_dict import dict_to_protobuf, protobuf_to_dict
+from google.protobuf.timestamp_pb2 import Timestamp
 
+from dict_to_proto3_to_dict import dict_to_protobuf, protobuf_to_dict, convert_to_utc,\
+                                   convert_to_local_timezone
 from tests.sample_pb2 import MainMessage
 
+_FIRST_JUNE_2018_SECONDS_FROM_EPOCH = 1527811200
+_SECONDS_IN_A_DAY = 24 * 60 * 60
 
 class TestProtoUtilModule(unittest.TestCase):
 
@@ -31,6 +36,17 @@ class TestProtoUtilModule(unittest.TestCase):
         dct["str_to_int_map"] = {"some_str": 1}
         dct["str_to_enum_map"] = {"first_key": "first", "second_key": "second"}
         dct["sub_message"] = {"a_str": "bangalore", "a_long": 560048L, "lst_longs": [1L, 2L, 3L]}
+
+        timestamp_1, timestamp_2, timestamp_3, timestamp_4 = Timestamp(), Timestamp(), \
+                                                             Timestamp(), Timestamp()
+        timestamp_1.FromJsonString("2018-06-01T05:30:00+5:30")
+        timestamp_2.FromJsonString("2018-06-02T00:00:00Z")
+        timestamp_3.FromJsonString("2018-06-03T00:00:00Z")
+        timestamp_4.FromJsonString("2018-06-04T00:00:00Z")
+        dct["a_timestamp"] = timestamp_1
+        dct["lst_timestamps"] = [timestamp_2, timestamp_3]
+        dct["str_to_timestamp_map"] = {"some_timestamp": timestamp_4}
+
         self.data_dct = dct
         self.main_msg_fields = self.data_dct.keys()
 
@@ -172,3 +188,42 @@ class TestProtoUtilModule(unittest.TestCase):
 
         self.assertEqual(dct, data_dct_copy)
 
+    def test_timestamps(self):
+        msg = MainMessage()
+        dict_to_protobuf(self.data_dct, msg)
+
+        self.assertEqual(getattr(msg, "a_timestamp").seconds, _FIRST_JUNE_2018_SECONDS_FROM_EPOCH)
+        self.assertEqual(getattr(msg, "lst_timestamps")[0].seconds,
+            _FIRST_JUNE_2018_SECONDS_FROM_EPOCH + _SECONDS_IN_A_DAY)
+        #dct["str_to_timestamp_map"] = {"some_timestamp": timestamp_4}
+        self.assertEqual(getattr(msg, "str_to_timestamp_map")["some_timestamp"].seconds,
+            _FIRST_JUNE_2018_SECONDS_FROM_EPOCH + (3* _SECONDS_IN_A_DAY))
+
+        dct = protobuf_to_dict(msg)
+
+        self.assertEqual(dct["a_timestamp"].seconds, _FIRST_JUNE_2018_SECONDS_FROM_EPOCH)
+        self.assertEqual(dct["lst_timestamps"][0].seconds,
+            _FIRST_JUNE_2018_SECONDS_FROM_EPOCH + _SECONDS_IN_A_DAY)
+        self.assertEqual(dct["str_to_timestamp_map"]["some_timestamp"].seconds,
+            _FIRST_JUNE_2018_SECONDS_FROM_EPOCH + (3* _SECONDS_IN_A_DAY))
+
+    def test_convert_to_utc(self):
+        ts = Timestamp()
+        ts.FromJsonString("2018-06-01T00:00:00+5:30")
+        ts_old_seconds = ts.seconds
+
+        convert_to_utc(ts)
+        ts_new_seconds = ts.seconds
+
+        self.assertEqual(ts_old_seconds - ts_new_seconds, (5*60*60+30*60))
+
+    def test_convert_to_local_timezone(self):
+        ts = Timestamp()
+        ts.FromJsonString("2018-06-01T00:00:00Z")
+
+        ts_old_seconds = ts.seconds
+        offset = time.timezone if (time.localtime().tm_isdst == 0) else time.altzone
+        convert_to_local_timezone(ts)
+        ts_new_seconds = ts.seconds
+
+        self.assertEqual(ts_old_seconds - ts_new_seconds, offset)

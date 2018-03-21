@@ -1,5 +1,9 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
+package test;
+
 message MainMessage {
     string a_str = 1;
     SomeEnum an_enum = 2;
@@ -12,6 +16,9 @@ message MainMessage {
     map<string, int32> str_to_int_map = 9;
     map<string, SomeEnum> str_to_enum_map = 10;
     SomeSubMessage sub_message = 11;
+    google.protobuf.Timestamp a_timestamp = 12;
+    repeated google.protobuf.Timestamp lst_timestamps = 13;
+    map<string, google.protobuf.Timestamp> str_to_timestamp_map = 14;
 }
 
 message SomeSubMessage{
