@@ -1,7 +1,8 @@
 __author__ = 'ujjwal tak'
 
-from dict_to_proto3_to_dict import dict_to_protobuf, protobuf_to_dict
+from .dict_to_proto3_to_dict import dict_to_protobuf, protobuf_to_dict
 
+__all__ = ['get_dict_from_proto_message', 'get_proto_message_from_dict']
 
 def get_dict_from_proto_message(message, proto_class):
     """
@@ -35,3 +36,4 @@ def get_proto_message_from_dict(data_dict, proto_class):
 
     # Serialize proto
     return proto_obj.SerializeToString()
+
