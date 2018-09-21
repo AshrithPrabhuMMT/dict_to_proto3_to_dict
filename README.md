@@ -65,7 +65,9 @@ recv_message.ParseFromString(proto_serialised_str)
 protobuf_to_dict(recv_message)
 ```
 
-Some shortcuts can be used here.
+## Shortcuts
+There is a shortcut utility which we can use to get proto message from a dict and vice-versa.
+
 ```python
 from dict_to_proto3_to_dict.shortcuts import get_dict_from_proto_message, get_proto_message_from_dict
 from sample_pb2 import MyMessage
