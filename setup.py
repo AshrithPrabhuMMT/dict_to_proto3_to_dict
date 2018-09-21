@@ -11,12 +11,12 @@ setup(
     long_description=open("README.md").read(),
     url='https://github.com/goibibo/dict_to_proto3_to_dict',
     license='Public Domain',
-    py_modules=['dict_to_proto3_to_dict', 'shortcuts'],
+    py_modules=['dict_to_proto3_to_dict'],
     packages=['dict_to_proto3_to_dict'],
     package_dir={'dict_to_proto3_to_dict': 'src'},
     install_requires=['protobuf>=3.0.0'],
     setup_requires=['protobuf>=3.0.0', 'nose>=1.0'],
-    test_suite = 'nose.collector',
+    test_suite='nose.collector',
     classifiers=[
           'Programming Language :: Python',
           'Development Status :: 4 - Beta',
@@ -29,6 +29,8 @@ setup(
               'protobuf',
               'dict to protobuf3',
               'protobuf3 to dict'
-              'default dict'
+              'default dict',
+              'proto3 to dict',
+              'dict to proto3'
               ]
 )
