@@ -1,7 +1,7 @@
 import unittest
 
 from .sample_pb2 import SomeSubMessage
-from protofy_shortcuts import parse_proto_message, get_protofy_response
+from shortcuts import get_dict_from_proto_message, get_proto_message_from_dict
 
 
 class TestProtoShortcuts(unittest.TestCase):
@@ -19,8 +19,8 @@ class TestProtoShortcuts(unittest.TestCase):
         self.data_dct, self.main_msg_fields = None, None
 
     def test_protofy(self):
-        proto_resp = get_protofy_response(self.data_dict, SomeSubMessage)
+        proto_resp = get_proto_message_from_dict(self.data_dict, SomeSubMessage)
 
-        d_dict = parse_proto_message(proto_resp, SomeSubMessage)
+        d_dict = get_dict_from_proto_message(proto_resp, SomeSubMessage)
 
         self.assertEqual(d_dict, self.data_dict)

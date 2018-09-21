@@ -3,7 +3,7 @@ __author__ = 'ujjwal tak'
 from dict_to_proto3_to_dict import dict_to_protobuf, protobuf_to_dict
 
 
-def parse_proto_message(message, proto_class):
+def get_dict_from_proto_message(message, proto_class):
     """
     Get parsed proto message.
 
@@ -17,12 +17,10 @@ def parse_proto_message(message, proto_class):
     proto_obj.ParseFromString(message)
 
     # get a dict out
-    item = protobuf_to_dict(proto_obj)
-
-    return item
+    return protobuf_to_dict(proto_obj)
 
 
-def get_protofy_response(data_dict, proto_class):
+def get_proto_message_from_dict(data_dict, proto_class):
     """
     Get protofied response.
 
@@ -31,6 +29,9 @@ def get_protofy_response(data_dict, proto_class):
     :return: bytes or str.
     """
     proto_obj = proto_class()
+
+    # Populate the proto object from the dict
     dict_to_protobuf(data_dict, proto_obj)
-    item = proto_obj.SerializeToString()
-    return item
+
+    # Serialize proto
+    return proto_obj.SerializeToString()

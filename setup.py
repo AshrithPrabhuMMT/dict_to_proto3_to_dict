@@ -11,7 +11,7 @@ setup(
     long_description=open("README.md").read(),
     url='https://github.com/goibibo/dict_to_proto3_to_dict',
     license='Public Domain',
-    py_modules=['dict_to_proto3_to_dict', 'protofy_shortcuts'],
+    py_modules=['dict_to_proto3_to_dict', 'shortcuts'],
     packages=['dict_to_proto3_to_dict'],
     package_dir={'dict_to_proto3_to_dict': 'src'},
     install_requires=['protobuf>=3.0.0'],
