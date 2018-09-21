@@ -65,6 +65,23 @@ recv_message.ParseFromString(proto_serialised_str)
 protobuf_to_dict(recv_message)
 ```
 
+Some shortcuts can be used here.
+```python
+from dict_to_proto3_to_dict.shortcuts import get_dict_from_proto_message, get_proto_message_from_dict
+from sample_pb2 import MyMessage
+
+data_dct = {
+    "name": "Neeraj Koul", "languages_known": ["Kashmiri", "Hindi", "English"], 
+    "favourite_movie": "The Grapes of Wrath", 
+    "degree_college_map": {"B.Tech": "NIT Trichy", "12th": "JK Board"}
+}
+
+resp_message = get_proto_message_from_dict(data_dct, MyMessage)
+
+resp_dct = get_dict_from_proto_message(resp_message, MyMessage)
+
+```
+
 ## Note on protobuf3 Timestamp
 First of all, protobuf timestamp objects in python can be created like
 ```python

@@ -1,12 +1,19 @@
 import copy
 import time
 import unittest
+import sys
 
 from google.protobuf.timestamp_pb2 import Timestamp
 
 from dict_to_proto3_to_dict import dict_to_protobuf, protobuf_to_dict, convert_to_utc,\
                                    convert_to_local_timezone
 from tests.sample_pb2 import MainMessage
+
+if sys.version >= '3':
+
+    def long(x):
+        return int(x)
+
 
 _FIRST_JUNE_2018_SECONDS_FROM_EPOCH = 1527811200
 _SECONDS_IN_A_DAY = 24 * 60 * 60
@@ -19,8 +26,10 @@ class TestProtoUtilModule(unittest.TestCase):
         dct["an_enum"] = "second"
         dct["an_int"] = 2
         dct["lst_ints"] = [0, 1, 2]
-        dct["lst_messages"] = [{"a_str": "first_five_non_zero_odd_nos", "a_long": 5L, "lst_longs": [1L, 3L, 5L, 7L, 9L]},
-                               {"a_str": "first_three_prime_nos", "a_long": 3L, "lst_longs": [2L, 3L, 5L]}
+        dct["lst_messages"] = [{"a_str": "first_five_non_zero_odd_nos", "a_long": long(5),
+                                "lst_longs": [long(1), long(3), long(5), long(7), long(9)]},
+                               {"a_str": "first_three_prime_nos", "a_long": long(3), "lst_longs":
+                                   [long(2), long(3), long(5)]}
                               ]
         dct["lst_enums"] = ["first", "second", "first"]
         dct["int_to_lst_ints_map"] = {1: {"lst_ints": [0, 1]},
@@ -29,13 +38,14 @@ class TestProtoUtilModule(unittest.TestCase):
                                      }
         dct["str_to_message_map"] = {"where_from" : 
                                              {"a_str": "Kashmir", 
-                                              "a_long": 1L, 
-                                              "lst_longs": [1L, 2L, 3L]
+                                              "a_long": long(1),
+                                              "lst_longs": [long(1), long(2), long(3)]
                                               }
                                         }
         dct["str_to_int_map"] = {"some_str": 1}
         dct["str_to_enum_map"] = {"first_key": "first", "second_key": "second"}
-        dct["sub_message"] = {"a_str": "bangalore", "a_long": 560048L, "lst_longs": [1L, 2L, 3L]}
+        dct["sub_message"] = {"a_str": "bangalore", "a_long": long(560048), "lst_longs": [long(1),
+                                                                                     long(2), long(3)]}
 
         timestamp_1, timestamp_2, timestamp_3, timestamp_4 = Timestamp(), Timestamp(), \
                                                              Timestamp(), Timestamp()
@@ -105,7 +115,7 @@ class TestProtoUtilModule(unittest.TestCase):
 
     def test_message_manipulation(self):
 
-        self.data_dct["sub_message"]["a_long"] = 560103L
+        self.data_dct["sub_message"]["a_long"] = long(560103)
 
         msg = MainMessage()
         dict_to_protobuf(self.data_dct, msg)
@@ -113,7 +123,7 @@ class TestProtoUtilModule(unittest.TestCase):
         self.assertTrue(self._are_fields_in_proto_msg(msg, ["sub_message"]))
 
         dct = protobuf_to_dict(msg)
-        self.assertEqual(dct["sub_message"]["a_long"], 560103L)
+        self.assertEqual(dct["sub_message"]["a_long"], long(560103))
 
     def test_list_manipulation(self):
         self.data_dct["lst_ints"] = []
@@ -172,7 +182,8 @@ class TestProtoUtilModule(unittest.TestCase):
         self.assertEqual(dct["str_to_enum_map"]["first_key"], "first")
         self.assertEqual(dct["str_to_int_map"]["some_str"], 1)
 
-        check_dct = {"a_str": "Kashmir", "lst_longs": [1L, 2L, 3L], "a_long": 0L}
+        check_dct = {"a_str": "Kashmir", "lst_longs": [long(1), long(2), long(3)],
+                     "a_long": long(0)}
         self.assertEqual(dct["str_to_message_map"]["where_from"], check_dct)
 
     def test_serialising_data_which_is_not_part_of_schema(self):
